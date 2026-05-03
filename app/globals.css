@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+/* ── Base reset inside Tailwind's layer so utilities always win ── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; padding: 0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6, p { margin: 0; padding: 0; }
+}
+
+:root {
+  --bg-primary:       #030610;
+  --bg-secondary:     #060c18;
+  --bg-card:          #090f1e;
+  --bg-card-hover:    #0d1526;
+  --bg-elevated:      #0e1628;
+  --border:           #131d33;
+  --border-bright:    #1a2a45;
+  --border-focus:     #2563eb;
+  --accent-blue:      #3b82f6;
+  --accent-blue-dim:  rgba(59,130,246,0.12);
+  --accent-blue-glow: rgba(59,130,246,0.25);
+  --accent-cyan:      #06b6d4;
+  --accent-indigo:    #818cf8;
+  --accent-green:     #10b981;
+  --accent-amber:     #f59e0b;
+  --accent-red:       #ef4444;
+  --accent-orange:    #f97316;
+  --accent-purple:    #a855f7;
+  --text-primary:     #e2e8f0;
+  --text-secondary:   #7d94b5;
+  --text-muted:       #334d6e;
+  --font-display:     'Syne', sans-serif;
+  --font-body:        'DM Sans', sans-serif;
+  --font-mono:        'JetBrains Mono', monospace;
+  --shadow-card:      0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #253550; }
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(59,130,246,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.018) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.3; transform:scale(0.85); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.animate-spin      { animation: spin 0.85s linear infinite; }
+.animate-fade-in   { animation: fadeIn 0.35s ease-out forwards; }
+.animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+.fade-up   { animation: fadeInUp 0.4s ease-out both; }
+.fade-up-1 { animation: fadeInUp 0.4s 0.04s ease-out both; }
+.fade-up-2 { animation: fadeInUp 0.4s 0.08s ease-out both; }
+.fade-up-3 { animation: fadeInUp 0.4s 0.12s ease-out both; }
+.fade-up-4 { animation: fadeInUp 0.4s 0.16s ease-out both; }
+
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #06b6d4 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+*:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; border-radius: 4px; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.card-glow { transition: box-shadow 0.2s ease, border-color 0.2s ease; }
+.card-glow:hover {
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.18), 0 8px 32px rgba(0,0,0,0.3);
+  border-color: rgba(59,130,246,0.22) !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar-drawer {
+    position: fixed !important;
+    top: 0; left: 0; bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.26s cubic-bezier(0.4,0,0.2,1);
+    z-index: 50;
+  }
+  .sidebar-drawer.open { transform: translateX(0); }
+  .sidebar-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 49;
+    backdrop-filter: blur(4px);
+  }
+  .sidebar-overlay.active { display: block; }
+}
+@media (min-width: 769px) {
+  .sidebar-drawer { position: sticky !important; transform: none !important; }
+  .mobile-topbar  { display: none !important; }
+}
