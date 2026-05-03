@@ -198,7 +198,7 @@ export function Spinner({ size = 24 }: { size?: number }) {
 export function Btn({
   children, onClick, variant = "primary", disabled = false, small = false, type = "button", className = ""
 }: {
-  children: ReactNode; onClick?: () => void; variant?: string;
+  children: ReactNode; onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; variant?: string;
   disabled?: boolean; small?: boolean; type?: "button" | "submit" | "reset"; className?: string;
 }) {
   const styles: Record<string, React.CSSProperties> = {
@@ -422,7 +422,7 @@ export function Table({ children }: { children: ReactNode }) {
   );
 }
 
-export function Th({ children }: { children: ReactNode }) {
+export function Th({ children }: { children?: ReactNode }) {
   return (
     <th
       className="text-left font-medium"
@@ -443,16 +443,19 @@ export function Th({ children }: { children: ReactNode }) {
   );
 }
 
-export function Td({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function Td({ children, className = "", ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
   return (
     <td
+      {...props}
       className={className}
       style={{
         fontSize: 13,
         borderBottom: "1px solid rgba(19,29,51,0.7)",
         color: "var(--text-primary)",
         padding: "11px 16px",
+        ...(props.style || {}),
       }}
+      
     >
       {children}
     </td>

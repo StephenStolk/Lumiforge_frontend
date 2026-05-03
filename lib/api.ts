@@ -118,3 +118,9 @@ export const runGapDetection = async (controls: any[], framework: string) =>
   (await API.post("/api/mcp/gap-detection", { controls, framework })).data;
 export const getAgentHistory = async () =>
   (await API.get("/api/mcp/history")).data;
+
+// ── Audit extras (/api/audit/) ────────────────────────
+export const getAuditTimeline = async () =>
+  (await API.get("/api/audit/timeline")).data;
+export const grantAuditorAccess = async (data: any) =>
+  (await API.post("/api/audit/auditor-access", data)).data;

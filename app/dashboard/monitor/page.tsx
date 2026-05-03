@@ -113,7 +113,16 @@ export default function MonitorPage() {
           ) : (
             <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
               {alerts.map((a: any) => (
-                <div key={a.id} className="flex items-start rounded-lg" style={{ gap: 10, padding: "10px 12px" }} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
+                <div
+  key={a.id}
+  className="flex items-start rounded-lg"
+  style={{
+    gap: 10,
+    padding: "10px 12px",
+    background: "var(--bg-secondary)",
+    border: "1px solid var(--border)",
+  }}
+>
                   <div className="flex-1 min-w-0">
                     <p className="text-white" style={{ fontSize: 12 }}>{a.message}</p>
                     <p style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "var(--font-mono)", marginTop: 2 }}>

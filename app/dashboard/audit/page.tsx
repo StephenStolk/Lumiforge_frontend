@@ -25,7 +25,7 @@ export default function AuditPage() {
     } catch(e){ console.error(e); }
     finally { setLoading(false); }
   };
-  useEffect(() => { load(); }, []);
+  useEffect(() => { let ignore = false; load().then(() => { if (ignore) return; }); return () => { ignore = true; }; }, []);
 
   const handleCreate = async () => { await createAuditSession(form); setShowAdd(false); load(); };
   const handleGenPackage = async (id: string) => {

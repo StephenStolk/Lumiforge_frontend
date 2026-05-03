@@ -88,35 +88,45 @@ export default function Sidebar({ mobileOpen, onClose }: SidebarProps) {
           {groups.map(group => (
             <div key={group}>
               <p
-                className="uppercase" style={{ paddingLeft: 8, paddingRight: 8, marginBottom: 8 }}
-                style={{ fontSize: 9, color: "#1e3050", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.12em", fontWeight: 600 }}
-              >
+  className="uppercase"
+  style={{
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 6,
+    fontSize: 9,
+    color: "#1e3050",
+    fontFamily: "'JetBrains Mono', monospace",
+  }}
+>
                 {GROUP_LABELS[group]}
               </p>
               <div className="flex flex-col" style={{ gap: 2 }}>
                 {NAV.filter(n => n.group === group).map(({ href, icon: Icon, label }) => {
                   const active = path === href || (href !== "/dashboard" && path.startsWith(href));
                   return (
-                    <Link
-                      key={href}
-                      href={href}
-                      onClick={onClose}
-                      className="flex items-center rounded-lg relative transition-all duration-150 group" style={{ gap: 10 }}
-                      style={{
-                        padding: "8px 12px",
-                        color: active ? "#e2e8f0" : "#445e80",
-                        background: active
-                          ? "linear-gradient(135deg, rgba(37,99,235,0.16) 0%, rgba(8,145,178,0.08) 100%)"
-                          : "transparent",
-                        border: active ? "1px solid rgba(37,99,235,0.18)" : "1px solid transparent",
-                      }}
-                      onMouseEnter={e => {
-                        if (!active) (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)";
-                      }}
-                      onMouseLeave={e => {
-                        if (!active) (e.currentTarget as HTMLElement).style.background = "transparent";
-                      }}
-                    >
+                   <Link
+  key={href}
+  href={href}
+  onClick={onClose}
+  className="flex items-center rounded-lg relative transition-all duration-150 group"
+  style={{
+    gap: 10,
+    padding: "8px 12px",
+    color: active ? "#e2e8f0" : "#445e80",
+    background: active
+      ? "linear-gradient(135deg, rgba(37,99,235,0.16) 0%, rgba(8,145,178,0.08) 100%)"
+      : "transparent",
+    border: active
+      ? "1px solid rgba(37,99,235,0.18)"
+      : "1px solid transparent",
+  }}
+  onMouseEnter={e => {
+    if (!active) (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)";
+  }}
+  onMouseLeave={e => {
+    if (!active) (e.currentTarget as HTMLElement).style.background = "transparent";
+  }}
+>
                       {active && (
                         <span
                           className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r-full"
@@ -187,11 +197,13 @@ function SidebarFooter() {
 export function MobileTopbar({ onOpen }: { onOpen: () => void }) {
   return (
     <div
-      className="mobile-topbar flex items-center sticky top-0 z-30" style={{ gap: 12, padding: "10px 16px" }}
+      className="mobile-topbar flex items-center sticky top-0 z-30"
       style={{
         background: "rgba(3,6,16,0.88)",
         borderBottom: "1px solid #101c32",
         backdropFilter: "blur(16px)",
+        gap: 12, 
+        padding: "10px 16px"
       }}
     >
       <button
