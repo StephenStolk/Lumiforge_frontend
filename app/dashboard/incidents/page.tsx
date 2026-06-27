@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getIncidents, createIncident, updateIncident } from "@/lib/api";
 import { PageHeader, Card, Btn, RiskBadge, StatusBadge, Modal, Input, Select, Textarea, Empty, Spinner, StatCard, Table, Th, Td, Tr } from "@/components/ui";
-import { Plus, AlertOctagon, Clock, CheckCircle, X } from "lucide-react";
+import { Plus, AlertOctagon, CheckCircle} from "lucide-react";
 
 const SEVERITIES = ["low","medium","high","critical"];
 const STATUSES = ["open","investigating","contained","resolved"];

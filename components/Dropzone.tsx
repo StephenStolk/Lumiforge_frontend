@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useState } from "react";
+import { useToast } from "./ToastProvider";
 import { Upload, FileText, X } from "lucide-react";
 import { Spinner } from "./ui";
 
@@ -12,11 +13,14 @@ interface DropzoneProps {
 export default function Dropzone({ onUpload, loading = false, accept = ".pdf,.doc,.docx,.txt" }: DropzoneProps) {
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File|null>(null);
+  const toastCtx = (() => { try { return useToast(); } catch { return null; } })();
 
   const handleFile = useCallback((f: File) => {
     setFile(f);
-    onUpload(f);
-  }, [onUpload]);
+    try { onUpload(f); } catch (e) { /* noop */ }
+    // lightweight toast indicating upload started
+    try { toastCtx?.toast({ type: "info", title: "Uploading", description: f.name }); } catch (e) { }
+  }, [onUpload, toastCtx]);
 
   const onDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();

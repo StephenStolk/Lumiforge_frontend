@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getAuditSessions, createAuditSession, generateAuditPackage, grantAuditorAccess, getAuditTimeline } from "@/lib/api";
 import { PageHeader, Card, Btn, StatusBadge, Badge, Modal, Input, Select, Empty, Spinner, SectionLabel, Table, Th, Td, Tr } from "@/components/ui";
-import { Plus, Package, UserCheck, Clock, ExternalLink, BookOpen } from "lucide-react";
+import { Plus, Package, UserCheck, Clock, BookOpen } from "lucide-react";
 
 const FRAMEWORKS = ["SOC2","ISO27001","GDPR","HIPAA","PCI-DSS"];
 

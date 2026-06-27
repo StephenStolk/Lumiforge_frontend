@@ -2,7 +2,28 @@
 import { useEffect, useState } from "react";
 import { getMonitoringDashboard, getAlerts, resolveAlert, getControls, getRisks, getIncidents } from "@/lib/api";
 import { StatCard, Card, Btn, RiskBadge, StatusBadge, Spinner, Empty, ProgressBar, Table, Th, Td, Tr, SectionLabel } from "@/components/ui";
+import { useAnalysis } from "@/components/AnalysisContext";
 import { RefreshCw, Bell, CheckCircle, Shield, AlertTriangle, Activity, TrendingUp, Zap } from "lucide-react";
+
+function RecentAnalyses() {
+  try {
+    const { history } = useAnalysis();
+    if (!history || history.length === 0) return <Empty message="No recent analyses" />;
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {history.slice(0, 6).map((h: any) => (
+          <div key={h.id || h.document_id} style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "8px 0", borderBottom: "1px dashed var(--border)" }}>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{h.title || h.filename || h.document_id}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>{h.created_at ? h.created_at.slice(0, 10) : "-"}</div>
+            </div>
+            <div style={{ color: "var(--text-secondary)", fontFamily: "var(--font-mono)", fontSize: 12 }}>{h.overall_status ?? "-"}</div>
+          </div>
+        ))}
+      </div>
+    );
+  } catch (e) { return <Empty message="No recent analyses" />; }
+}
 
 export default function DashboardPage() {
   const [monitor, setMonitor]     = useState<any>(null);
@@ -208,6 +229,14 @@ export default function DashboardPage() {
               ))}
             </div>
           ) : <Empty message="No active alerts 🎉" />}
+        </Card>
+      </div>
+
+      {/* Recent analyses (from user history) */}
+      <div className="fade-up-3" style={{ marginBottom: 16 }}>
+        <Card>
+          <SectionLabel>Recent analyses</SectionLabel>
+          <RecentAnalyses />
         </Card>
       </div>
 
