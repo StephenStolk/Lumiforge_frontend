@@ -112,10 +112,10 @@ export const suggestControls = async (data: any) =>
   (await API.post("/api/mcp/suggest-controls", data)).data;
 export const runAiAuditor = async (data: any) =>
   (await API.post("/api/mcp/ai-auditor", data)).data;
-export const naturalLanguageQuery = async (question: string, org_context: any = {}) =>
-  (await API.post("/api/mcp/query", { question, org_context })).data;
-export const runGapDetection = async (controls: any[], framework: string) =>
-  (await API.post("/api/mcp/gap-detection", { controls, framework })).data;
+export const naturalLanguageQuery = async (question: string, org_context: any = {}, document_id?: string) =>
+  (await API.post("/api/mcp/query", { question, org_context, document_id })).data;
+export const runGapDetection = async (controls: any[], framework: string, document_id?: string) =>
+  (await API.post("/api/mcp/gap-detection", { controls, framework, document_id })).data;
 export const getAgentHistory = async () =>
   (await API.get("/api/mcp/history")).data;
 
@@ -124,3 +124,20 @@ export const getAuditTimeline = async () =>
   (await API.get("/api/audit/timeline")).data;
 export const grantAuditorAccess = async (data: any) =>
   (await API.post("/api/audit/auditor-access", data)).data;
+// ── Vendor AI (/api/vendors/) ──────────────────────────
+export const aiVendorAssess = async (vendor_id: string) =>
+  (await API.post(`/api/vendors/${vendor_id}/ai-assess`)).data;
+export const generateVendorQuestionnaire = async (vendor_id: string) =>
+  (await API.post(`/api/vendors/${vendor_id}/questionnaire`)).data;
+
+// ── Policy AI (/api/policies/) ────────────────────────
+export const aiPolicyReview = async (policy_id: string) =>
+  (await API.post(`/api/policies/${policy_id}/ai-review`)).data;
+export const aiGeneratePolicy = async (data: { policy_type: string; frameworks: string[] }) =>
+  (await API.post("/api/policies/ai-generate", data)).data;
+
+// ── Employee AI (/api/employees/) ─────────────────────
+export const aiTrainingPlan = async (data: { role: string; department: string; frameworks: string[] }) =>
+  (await API.post("/api/employees/ai-training-plan", data)).data;
+export const aiOnboardingChecklist = async (employee_id: string) =>
+  (await API.post(`/api/employees/${employee_id}/ai-onboarding`)).data;

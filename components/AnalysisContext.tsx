@@ -12,7 +12,7 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
   const refresh = useCallback(async () => {
     try {
       const res = await getAnalysisHistory();
-      setHistory(res || []);
+      setHistory(Array.isArray(res) ? res : res?.results || []);
     } catch (e) {
       console.error("failed to fetch analysis history", e);
     }
